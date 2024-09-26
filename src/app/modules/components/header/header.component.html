@@ -1,6 +1,6 @@
 <ul class="navbar-nav flex-row" (click)="$event.preventDefault()">
   <li class="nav-item">
-    <a (click)="toggleSidebar('static')" class="nav-link d-none ml-3 d-md-flex toggleIcon" placement="bottom">
+    <a (click)="toggleSidebar('static')" class="nav-link d-none ml-3 toggleIcon" placement="bottom">
       <i class="la la-bars la-lg"></i>
     </a>
     <a (click)="toggleSidebar('collapse')" class="d-md-none nav-link toggleIcon" data-html="true"
@@ -10,8 +10,10 @@
   </li>
 </ul>
 
-<h2 class="mr-auto">{{headingTitle}}</h2>
-
+<h2 class="heading mr-auto">{{headingTitle}}</h2>
+<button *ngIf="campDetailPage" class="btn btn-transparent btn-hover d-flex align-items-center"
+  (click)="emitEvent('validate')">
+  <i class="fa fa-info"></i><span class="font-weight-bold">Validate Emails</span></button>
 <button *ngIf="campDetailPage" class="btn btn-transparent btn-hover d-flex align-items-center"
   (click)="emitEvent('update')">
   <i class="fa fa-plus"></i><span class="font-weight-bold">Update Email</span></button>

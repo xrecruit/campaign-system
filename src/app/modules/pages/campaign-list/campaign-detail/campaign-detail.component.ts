@@ -12,6 +12,7 @@ import { AddUserComponent } from 'src/app/modules/modals/add-user/add-user.compo
 import { TestMailComponent } from 'src/app/modules/modals/test-mail/test-mail.component';
 import { SendMailConfigurationComponent } from 'src/app/modules/modals/send-mail-configuration/send-mail-configuration.component';
 import { ComposeEmailService } from '../../compose-email/compose-email.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-campaign-detail',
@@ -56,6 +57,9 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
           break;
         case 'openCsv':
           this.assignUsersWithCsv();
+          break;
+        case 'validate':
+          this.validateUsers();
           break;
         default:
           this.openClickDetails();
@@ -318,6 +322,23 @@ export class CampaignDetailComponent implements OnInit, OnDestroy {
     } catch (error) {
       this.commonService.handleError(error);
     }
+  }
+
+  async validateUsers() {
+    try {
+      this.apiInProcess = true;
+      await this.campaignListService.validateUser(this.campaignDetails);
+      this.apiInProcess = false;
+      this.getUserDetails(true);
+    } catch (error) {
+      this.apiInProcess = false;
+      this.commonService.handleError(error);
+    }
+  }
+
+  downloadUserList() {
+    let validUser = this.userDetails.filter(item => item.status);
+    this.campaignListService.downloadFile(validUser, 'validUserList')
   }
 
   ngOnDestroy() {

@@ -30,6 +30,7 @@ export class CampaignDescriptionComponent implements OnInit {
   formData = new FormData();
   attachedFile: any;
   messageId: any;
+  fileName: string;
 
   editorConfig: AngularEditorConfig = {
     height: '230px',
@@ -107,6 +108,7 @@ export class CampaignDescriptionComponent implements OnInit {
   }
 
   attachFile(files: File[]) {
+    this.fileName = files[0].name;
     this.formData.append('attachment_file', files[0]);
   }
 

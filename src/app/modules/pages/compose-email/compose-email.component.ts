@@ -21,6 +21,7 @@ export class ComposeEmailComponent implements OnInit {
   createCampaignInProcess: boolean;
   attachment: false;
   formData = new FormData();
+  fileName: string;
 
   constructor(
     private fb: FormBuilder,
@@ -74,6 +75,7 @@ export class ComposeEmailComponent implements OnInit {
   }
 
   attachFile(files: File[]) {
+    this.fileName = files[0].name;
     this.formData.append('attachment_file', files[0]);
   }
 

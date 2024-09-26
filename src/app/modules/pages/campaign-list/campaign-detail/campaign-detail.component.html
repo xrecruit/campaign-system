@@ -1,10 +1,21 @@
 <div *ngIf="apiInProcess" class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
 </div>
-<div *ngIf="!apiInProcess" class="mt-5">
-    <h6><b>Description: </b> {{campaignDetails.Campaign_description}}</h6>
-    <h6><b>Total expected time of completion:
-        </b>{{campaignDetails.total_expected_time_of_completion || 'Mail not sended yet'}}</h6>
+<div *ngIf="!apiInProcess" class="mt-5 d-flex justify-content-between">
+    <div>
+        <h6><b>Description: </b> {{campaignDetails.Campaign_description}}</h6>
+        <h6><b>Total expected time of completion:</b>
+            {{campaignDetails.total_expected_time_of_completion || 'Mail not sended yet'}}
+        </h6>
+        <h6 *ngIf="campaignDetails.verification === 'Running' || campaignDetails.verification === 'Completed'">
+            <b>Email validation status:</b>
+            {{campaignDetails.verification}}
+        </h6>
+    </div>
+    <div *ngIf="campaignDetails.verification === 'Running' || campaignDetails.verification === 'Completed'"
+        class="my-3 text-right">
+        <button class="btn btn-dark" (click)="downloadUserList()">Download valid user</button>
+    </div>
 </div>
 <div *ngIf="sendMailInProcess" class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
@@ -14,55 +25,59 @@
     <div *ngIf="errorMsg" class="alert alert-danger" role="alert">
         {{errorMsg}}
     </div>
-    <table class="table" *ngIf="userDetails">
-        <thead>
-            <tr class="text-center">
-                <th>Sr. No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th *ngIf="userDetails[0] && userDetails[0].mobile">Mobile</th>
-                <th *ngIf="userDetails[0] && userDetails[0].website">Website</th>
-                <th>Sent On</th>
-                <th>Bounce</th>
-                <th>Seen</th>
-                <th>Click</th>
-                <th>Unsubscribe</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody *ngIf="userDetails.length > 0">
-            <tr *ngFor="let userDetail of userDetails;index as i" class="text-center">
-                <td>{{ i+1 }}</td>
-                <td (click)="openHitDetails(userDetail)" class="cursor-pointer">{{ userDetail.name }}</td>
-                <td (click)="openHitDetails(userDetail)" class="cursor-pointer"> {{ userDetail.email }}</td>
-                <td *ngIf="userDetail.mobile" (click)="openHitDetails(userDetail)" class="cursor-pointer">
-                    {{ userDetail.mobile }}</td>
-                <td *ngIf="userDetail.website" (click)="openHitDetails(userDetail)" class="cursor-pointer">
-                    {{ userDetail.website }}</td>
-                <td *ngIf="userDetail.send_status != true">{{ userDetail.send_status }}</td>
-                <td *ngIf="userDetail.send_status == true">
-                    {{ userDetail.hit_details && userDetail.hit_details.sending_time | date:'short'}}</td>
-                <td>
-                    <i *ngIf="!userDetail.hit_details.bounce" class="fa fa-times"></i>
-                    <span *ngIf="userDetail.hit_details.bounce">{{userDetail.hit_details.bounce_type}}</span>
-                </td>
+    <cdk-virtual-scroll-viewport [itemSize]="30" class="example-viewport">
+        <table class="table" *ngIf="userDetails">
+            <thead>
+                <tr class="text-center">
+                    <th>Sr. No</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th *ngIf="userDetails[0] && userDetails[0].mobile">Mobile</th>
+                    <th *ngIf="userDetails[0] && userDetails[0].website">Website</th>
+                    <th>Sent On</th>
+                    <th>Bounce</th>
+                    <th>Seen</th>
+                    <th>Click</th>
+                    <th>Unsubscribe</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="userDetails.length > 0">
+                <tr *cdkVirtualFor="let userDetail of userDetails;index as i" class="text-center">
+                    <td>{{ i+1 }}</td>
+                    <td [ngClass]="{'text-danger':!userDetail.status}" (click)="openHitDetails(userDetail)"
+                        class="cursor-pointer">{{ userDetail.name }}</td>
+                    <td [ngClass]="{'text-danger':!userDetail.status}" (click)="openHitDetails(userDetail)"
+                        class="cursor-pointer"> {{ userDetail.email }}</td>
+                    <td *ngIf="userDetail.mobile" (click)="openHitDetails(userDetail)" class="cursor-pointer">
+                        {{ userDetail.mobile }}</td>
+                    <td *ngIf="userDetail.website" (click)="openHitDetails(userDetail)" class="cursor-pointer">
+                        {{ userDetail.website }}</td>
+                    <td *ngIf="userDetail.send_status != true">{{ userDetail.send_status }}</td>
+                    <td *ngIf="userDetail.send_status == true">
+                        {{ userDetail.hit_details && userDetail.hit_details.sending_time | date:'short'}}</td>
+                    <td>
+                        <i *ngIf="!userDetail.hit_details.bounce" class="fa fa-times"></i>
+                        <span *ngIf="userDetail.hit_details.bounce">{{userDetail.hit_details.bounce_type}}</span>
+                    </td>
 
-                <td>
-                    <span *ngIf="userDetail.seen">
-                        {{ userDetail.hit_details && userDetail.hit_details.seen_date | date:'short' }}</span>
-                    <i *ngIf="!userDetail.seen" class="fa fa-times" aria-hidden="true"></i>
-                </td>
-                <td>
-                    <i *ngIf="userDetail.hit_details.clicked" class="fa fa-check"></i>
-                    <i *ngIf="!userDetail.send_status || !userDetail.hit_details.clicked" class="fa fa-times"
-                        aria-hidden="true"></i>
-                </td>
-                <td>
-                    <i *ngIf="userDetail.unsubscribe_status" class="fa fa-check"></i>
-                    <i *ngIf="!userDetail.unsubscribe_status" class="fa fa-times" aria-hidden="true"></i>
-                </td>
-                <td><i (click)="removeUser(userDetail._id)" class="fa fa-trash text-danger cursor-pointer"></i></td>
-            </tr>
-        </tbody>
-    </table>
+                    <td>
+                        <span *ngIf="userDetail.seen">
+                            {{ userDetail.hit_details && userDetail.hit_details.seen_date | date:'short' }}</span>
+                        <i *ngIf="!userDetail.seen" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td>
+                        <i *ngIf="userDetail.hit_details.clicked" class="fa fa-check"></i>
+                        <i *ngIf="!userDetail.send_status || !userDetail.hit_details.clicked" class="fa fa-times"
+                            aria-hidden="true"></i>
+                    </td>
+                    <td>
+                        <i *ngIf="userDetail.unsubscribe_status" class="fa fa-check"></i>
+                        <i *ngIf="!userDetail.unsubscribe_status" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i (click)="removeUser(userDetail._id)" class="fa fa-trash text-danger cursor-pointer"></i></td>
+                </tr>
+            </tbody>
+        </table>
+    </cdk-virtual-scroll-viewport>
 </div>

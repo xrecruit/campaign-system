@@ -20,6 +20,7 @@ export class UpdateCampaignComponent implements OnInit {
   templateOptions = new Array(3);
   popUpValue: any;
   updateEmailFrom: any;
+  fileName: string;
 
   constructor(private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data,
@@ -114,6 +115,7 @@ export class UpdateCampaignComponent implements OnInit {
   }
 
   attachFile(files: File[]) {
+    this.fileName = files[0].name;
     this.formData.append('attachment_file', files[0]);
   }
 

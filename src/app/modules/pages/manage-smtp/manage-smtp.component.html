@@ -3,41 +3,34 @@
     <app-popup-message *ngIf="popUpValue" [message]="popUpValue"></app-popup-message>
   </div>
 </div>
-<div class="row">
-  <div class="smtptable table-responsive">
-    <table id="table" class="col-sm-12 table">
+<div class="row px-4">
 
-      <thead class="mt-2">
-        <tr>
-          <th>Email ID</th>
-          <th>Server</th>
-          <th>Port</th>
-          <th class="align-center">Priority</th>
-          <th class="align-center">Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr *ngFor="let smtp of smtpList;index as i;let first = first;let last = last">
-          <td id="email"> <span
-              class="firstLatter text-center">{{smtp.mail_username.charAt(0) | uppercase}}</span>{{smtp.mail_username}}
-          </td>
-          <td>{{smtp.mail_server}}</td>
-          <td>{{smtp.mail_port}}</td>
-          <td class="align-center">
-            <button class="btn" [disabled]='first' (click)="changePriority(smtp,1,i)"><i
-                class="fa fa-arrow-up text-success changePriority mr-3"></i></button>
-            <button class="btn" [disabled]='last' (click)="changePriority(smtp,0,i)"><i
-                class="fa fa-arrow-down text-danger changePriority"></i></button>
-          </td>
-          <td mat-close class="cursor-pointer text-center text-danger" (click)='updatePassword(smtp._id)'>Edit</td>
-          <td>
-            <button class="cursor" (click)="removeUser(smtp._id)"> <i class="fa fa-trash"></i></button>
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
+  <div *ngFor="let smtp of smtpList;index as i;let first = first;let last = last" class="imap-container">
+    <div class="imap-content">
+      <div class="imap-content__name">
+        {{smtp.mail_username}}
+      </div>
+      <div class="imap-content__date">
+        {{smtp.created_at | date:'d MMM y'}}
+      </div>
+    </div>
+    <div class="imap-image">
+      <div class="imap-image__container">
+        <img [src]="smtp.imgSrc" alt="imap-image" class="imap-image__container--img">
+      </div>
+    </div>
+    <div class="imap-action-buttons">
+      <i (click)='updatePassword(smtp._id)' class="fa fa-pencil-square-o" aria-hidden="true"></i>
+      <i (click)="removeUser(smtp._id)" class="fa fa-trash-o" aria-hidden="true"></i>
+      <div class="d-flex" [ngClass]="{'not-allowed':first}">
+        <i [ngClass]="{'pointer-event-none':first}" (click)="changePriority(smtp,1,i)" class=" fa fa-arrow-left"
+          aria-hidden="true"></i>
+      </div>
+      <div class="d-flex" [ngClass]="{'not-allowed':first}">
+        <i [ngClass]="{'pointer-event-none':first}" (click)="changePriority(smtp,0,i)" class="fa fa-arrow-right"
+          aria-hidden="true"></i>
+      </div>
+    </div>
   </div>
+
 </div>

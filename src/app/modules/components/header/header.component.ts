@@ -4,9 +4,7 @@ import { AppConfig, ADMIN } from 'src/app/app.config';
 import { CommonService } from 'src/app/services/common.service';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { CampaignListService } from '../../pages/campaign-list/campaign-list.service';
-// import { environment } from 'src/environments/environment';
 
 declare let jQuery: any;
 
@@ -141,18 +139,18 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
     if (this.searchSubs) this.searchSubs.unsubscribe();
   }
 
-  isUserAdmin() {
-    const token = this.localStorageService.getToken();
-    const helper = new JwtHelperService;
-    const decodedToken = helper.decodeToken(token);
-    this.id = decodedToken.token;
-    if (decodedToken.role === ADMIN) {
-      return true
-    }
-    else {
-      return false
-    }
-  }
+  // isUserAdmin() {
+  //   const token = this.localStorageService.getToken();
+  //   const helper = new JwtHelperService;
+  //   const decodedToken = helper.decodeToken(token);
+  //   this.id = decodedToken.token;
+  //   if (decodedToken.role === ADMIN) {
+  //     return true
+  //   }
+  //   else {
+  //     return false
+  //   }
+  // }
 
   emitEvent(eventVal) {
     this.campaignListService.setEventValue(eventVal);

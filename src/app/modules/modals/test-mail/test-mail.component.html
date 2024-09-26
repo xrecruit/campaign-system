@@ -5,7 +5,7 @@
 <div mat-dialog-content class="mt-2">
     <form [formGroup]="testMailForm">
         <div class="row form-group">
-            <div class="col-md-2"><label class="control-label">Email</label></div>
+            <div class="col-md-2 d-flex align-items-center"><label class="control-label mb-0">Email</label></div>
             <div class="col-md-10">
                 <input type="text" class="form-control form-control-sm" formControlName="email">
                 <div *ngIf="testMailForm.get('email').invalid && testMailForm.get('email').touched">

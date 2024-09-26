@@ -1,4 +1,4 @@
-FROM  node:13 as angular
+FROM  node:14 as angular
 LABEL maintainer="Manish Prakash<manish@excellencetechnologies.in"
 
 WORKDIR /workspace
@@ -17,8 +17,6 @@ COPY tslint.json /workspace
 COPY browserslist /workspace/browserslist
 
 RUN npm install -g @angular/cli
-
-RUN ng config -g cli.warnings.versionMismatch false
 
 RUN npm install
 

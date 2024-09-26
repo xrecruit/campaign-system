@@ -3,45 +3,55 @@
 </div>
 <div *ngIf="!apiInProcess" class="campaignList mt-5">
     <app-popup-message [message]="popUpValue"></app-popup-message>
-    <table class="table">
-        <thead>
-            <tr class="text-center">
-                <th>Campaign Name</th>
-                <th>Campaign Description</th>
-                <th>User Count</th>
-                <th>Bounce Rate</th>
-                <th>Open Rate</th>
-                <th>Click Rate</th>
-                <th>Unsubscribe Count</th>
-                <th>Creation Date</th>
-                <th>Status</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let campaign of campaignList" class="text-center">
-                <td class="campaign-name cursor-pointer" (click)="openCampaign(campaign)">{{ campaign.Campaign_name }}
-                </td>
-                <td class="cursor-pointer" (click)="openCampaign(campaign)">{{ campaign.Campaign_description }}</td>
-                <td class="cursor-pointer" (click)="openCampaign(campaign)">{{ campaign.users }}</td>
-                <td class="cursor-pointer" (click)="openCampaign(campaign)">{{ campaign.bounce_rate || '0' }}%</td>
-                <td class="cursor-pointer" (click)="openCampaign(campaign)">{{ campaign.seen_rate && campaign.seen_rate.toFixed(2) || '0' }}%</td>
-                <td class="cursor-pointer" (click)="openCampaign(campaign)">{{ campaign.open_rate && campaign.open_rate.toFixed(2) || '0' }}%</td>
-                <td class="cursor-pointer" (click)="openCampaign(campaign)">{{ campaign.unsubscribed_users || '0' }}</td>
-                <td>{{campaign.creation_date | date:'short'}}</td>
-                <td *ngIf="(campaign.status !== 'Paused') && (campaign.status !== 'Running')"
-                    [ngClass]="{'text-danger':campaign.status === 'Error spawned'}">
-                    {{campaign.status}}
-                </td>
-                <td class="cursor-pointer text-center "
-                    *ngIf="(campaign.status === 'Running') || (campaign.status === 'Paused')">
-                    <i *ngIf="campaign.status === 'Running'" class="fa fa-stop-circle"
-                        (click)="changeStatus(campaign)"></i>
-                    <i *ngIf="campaign.status === 'Paused'" class="fa fa-play-circle"
-                        (click)="changeStatus(campaign)"></i>
-                </td>
-                <td><button class="cursor" (click)="removeCampaign(campaign)"><i class="fa fa-trash"></i></button></td>
-            </tr>
-        </tbody>
-    </table>
+
+    <div class="campaign-container" *ngFor="let campaign of campaignList;index as i">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="expandCampaignList.includes(i)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <div (click)="openCampaign(campaign)">{{ campaign.Campaign_name }}</div>
+                        <div (click)="openCampaign(campaign)" class="campaign-description">
+                            {{ campaign.Campaign_description }}
+                        </div>
+                    </mat-panel-title>
+                    <mat-panel-description (click)="$event.stopPropagation();">
+                        <button class="cursor negative-margin" (click)="removeCampaign(campaign)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="d-flex justify-content-between flex-wrap">
+                    <div class="d-flex flex-column align-items-center px-3">
+                        <div>{{ campaign.users }}</div>
+                        <div>User count</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center px-3">
+                        <div>{{ campaign.bounce_rate || '0' }}%</div>
+                        <div>Bounce Rate</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center px-3">
+                        <div>{{ campaign.seen_rate && campaign.seen_rate.toFixed(2) || '0' }}%</div>
+                        <div>Open Rate</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center px-3">
+                        <div>{{ campaign.open_rate && campaign.open_rate.toFixed(2) || '0' }}%</div>
+                        <div>Click Rate</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center px-3">
+                        <div>{{ campaign.unsubscribed_users || '0' }}</div>
+                        <div>Unsubscribe Count</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center px-3">
+                        <div>{{campaign.creation_date | date:'short'}}</div>
+                        <div>Creation Date</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center px-3">
+                        <div *ngIf="(campaign.status !== 'Paused') && (campaign.status !== 'Running')"
+                            [ngClass]="{'text-danger':campaign.status === 'Error spawned'}">{{campaign.status}}</div>
+                        <div>Status</div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>

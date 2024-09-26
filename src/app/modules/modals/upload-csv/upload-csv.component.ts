@@ -13,6 +13,7 @@ export class UploadCsvComponent implements OnInit {
   dataList: any;
   uploaded: any;
   fileInvalid: boolean;
+  fileName: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
@@ -24,6 +25,7 @@ export class UploadCsvComponent implements OnInit {
 
   onChange(files: File[]) {
     if (files[0] && files[0].name.endsWith('.csv')) {
+      this.fileName = files[0].name;
       this.fileInvalid = false;
       Papa.parse(files[0], {
         header: true,

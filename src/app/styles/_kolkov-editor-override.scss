@@ -1,0 +1,57 @@
+@import "../../global.scss";
+
+app-compose-email-temp,
+app-campaign-description,
+app-hit-details,
+app-update-campaign {
+    .sendMailEditor {
+        .angular-editor-toolbar {
+            background-color: $white;
+            position: absolute !important;
+            bottom: -32px !important;
+            border: none;
+            background: transparent;
+            ae-select {
+                display: none !important;
+            }
+            .angular-editor-toolbar-set {
+                margin-left: 0.5rem !important;
+            }
+            .angular-editor-button {
+                margin-right: 1rem !important;
+                border-radius: 4px;
+                font-family: inherit;
+            }
+        }
+    }
+
+    .angular-editor {
+        border: 1px solid $extraGrey;
+        border-radius: 0.3rem;
+        min-height: 6rem;
+        padding-bottom: 3.5rem;
+        .angular-editor-textarea {
+            margin-top: 0 !important;
+            border: none !important;
+            resize: none !important;
+            &:focus {
+                outline: none;
+            }
+        }
+        .angular-editor-toolbar {
+            right: 0 !important;
+            .angular-editor-toolbar-set {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+    }
+    .angular-editor-textarea:focus {
+        .angular-editor {
+            border: 2px solid $black !important;
+        }
+    }
+    .sendMailEditor .angular-editor-toolbar {
+        bottom: -2px !important;
+    }
+}

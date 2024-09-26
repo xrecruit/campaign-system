@@ -9,7 +9,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptors/interceptor.service';
 import { MaterialModule } from './material/angular-material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { CKEditorModule } from 'ng2-ckeditor';
 import { DatePipe } from '@angular/common';
 import { AuthGuardService } from './services/auth-Guard/auth-guard.service';
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -47,7 +46,6 @@ import { SetPasswordComponent } from './modules/modals/set-password/set-password
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    CKEditorModule,
     AngularEditorModule,
     PopUpMessageModule
   ],

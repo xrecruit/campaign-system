@@ -1,4 +1,4 @@
-@import '../../../../global.scss';
+@import "../../../../global.scss";
 @import "../../../styles/helpers";
 @import "../../../../../node_modules/jasny-bootstrap/dist/css/jasny-bootstrap";
 
@@ -10,8 +10,12 @@
   right: calc(50% - (2rem / 2));
 }
 
-.create-campaign{
+.create-campaign {
   background: $background;
+}
+
+.control-label {
+  margin-bottom: 0;
 }
 
 .fileinput.input-group {
@@ -29,7 +33,7 @@
   }
 }
 
-.fileinput-filename{
+.fileinput-filename {
   white-space: nowrap;
   overflow: hidden;
 }

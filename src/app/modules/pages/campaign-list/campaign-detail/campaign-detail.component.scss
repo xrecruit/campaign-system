@@ -1,9 +1,14 @@
-@import '../../../../../global.scss';
+@import "../../../../../global.scss";
 
-.campaignList{
-    background: $background;;
+.campaignList {
+    background: $background;
 }
 
-.text-center{
+.text-center {
     text-align: center;
+}
+
+.example-viewport {
+    height: 76vh;
+    width: 100%;
 }

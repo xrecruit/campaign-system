@@ -25,13 +25,14 @@
             <div>
                 <label class="field-label">Select Smtp</label>
                 <div class="flex-container">
-                    <div *ngFor="let smtp of sendMailConfiguration.controls.smtps.controls; let i=index;">
-                        <input type="checkbox" [formControl]="smtp">
+                    <div *ngFor="let smtp of sendMailConfiguration.controls.smtps.controls; let i=index;"
+                        class="d-flex align-items-center">
+                        <input type="checkbox" [formControl]="smtp" class="mr-2">
                         {{smtpList[i].mail_username}}
                         <div class="text-danger ml-3"
                             *ngIf="data.sendMailError && smtpList[i].mail_username === data.sendMailError.mail">
                             {{data.sendMailError.message}}
-                        </div>                                                                                                                                                                      
+                        </div>
                     </div>
                 </div>
             </div>

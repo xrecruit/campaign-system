@@ -6,7 +6,6 @@ import { SettingsComponent } from './settings.component';
 import { HeaderModule } from '../../components/header/header.module';
 import { RouterModule } from '@angular/router';
 import { SettingsSidenavModule } from '../../components/settings-sidenav/settings-sidenav.module';
-import { LoadingBarRouterModule } from '@ngx-loading-bar/router'
 
 
 @NgModule({
@@ -17,7 +16,6 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router'
     HeaderModule,
     RouterModule,
     SettingsSidenavModule,
-    LoadingBarRouterModule
   ]
 })
 export class SettingsModule { }

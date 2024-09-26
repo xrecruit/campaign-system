@@ -1,20 +1,31 @@
-@import '../../../../global.scss';
+@import "../../../../global.scss";
 
 .btn-hover {
   vertical-align: middle;
   white-space: nowrap;
   display: inline-block;
-  max-width: 36px;
+  max-width: 50px;
   height: 36px;
   transition: 1s max-width;
   overflow: hidden;
+  background-color: #007eff;
+  color: #fff;
+  border-radius: 50px !important;
+  justify-content: center;
   i {
-    margin-right: 15px;
+    padding: 0 1rem;
+  }
+  span {
+    display: none;
   }
   &:hover {
-    border-radius: 50px !important;
     max-width: 250px;
-    color: $headerButtonColor;
-    background-color: $headerBackground;
+    i {
+      padding: 0;
+      padding-right: 8px;
+    }
+    span {
+      display: block;
+    }
   }
 }

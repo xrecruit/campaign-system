@@ -1,64 +1,48 @@
 <div *ngIf="loginForm" class="container-fluid">
     <div class="row">
-        <div class="col-sm-6 column-1">
-            <div class="left">
-                <div class="recruit-logo">
-                    <img src="assets/img/company-logo.png" alt="Excellece Technologies">
+        <div class="left-panel col-12 col-md-4 d-flex flex-column justify-content-center px-sm-4 px-lg-5">
+            <header>
+                <div class="text-center mb-3">
+                    <img class="company-icon" src="assets/img/rocket.svg" alt="Excellece Technologies">
                 </div>
-                <form [formGroup]="loginForm" (ngSubmit)='onLogin(loginForm.value)' ngNativeValidate>
-                    <p>Welcome to</p>
-                    <h5>Campaign Management System (CMS) </h5>
-                    <input type="email" [class.is-invalid]='email.invalid && email.touched' placeholder="Email"
-                        formControlName="email">
-                    <div *ngIf="email.invalid && email.touched">
-                        <small *ngIf="email.errors?.required" class="text-danger">Email is required</small>
-                    </div>
-                    <input type="password" [class.is-invalid]='password.invalid && password.touched'
-                        placeholder="Password" formControlName="password">
-                    <div *ngIf="password.invalid && password.touched">
-                        <small *ngIf="password.errors?.required" class="text-danger">Password is required</small>
-                    </div>
-                    <div class="forget">
-                        <label class="lab">
-                            <input type="checkbox" class="check-custom radio" formControlName="remember_me" hidden>
-                            <span class="check-toggle"></span> Remember me
-                        </label>
-                        <span class="recruit-forget" (click)="forgetPassword()">Forget password?</span>
-                    </div>
-                    <button class='btn' type="submit" [disabled]="!loginForm.valid || apiInProgress"><span
-                            *ngIf="!apiInProgress">Login</span><span *ngIf="apiInProgress">Logging In...</span></button>
-                    <small *ngIf="loginError" class="alert alert-danger">Invalid Details</small>
-                </form>
-                <div class="errorMsg">
-                    <app-popup-message [message]="popUpValue"></app-popup-message>
+                <h4 class="font-weight-bold mb-0">Welcome to</h4>
+                <h1 class="title font-weight-bold text-dark">Campaign Management System (CMS)</h1>
+            </header>
+            <form class="form" [formGroup]="loginForm" (ngSubmit)='onLogin(loginForm.value)'>
+                <div class="custom-form-field-theme pt-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'Email'}}</mat-label>
+                        <input matInput type="email" formControlName="email">
+                        <mat-error>{{'Email is Required.'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'Password'}}</mat-label>
+                        <input matInput type="password" formControlName="password">
+                        <mat-error>{{'Password is Required.'}}</mat-error>
+                    </mat-form-field>
                 </div>
-            </div>
+                <div class="d-flex justify-content-between login-helper text-muted-altered">
+                    <label class="mb-0">
+                        <input type="checkbox" class="check-custom radio" formControlName="remember_me" hidden>
+                        <span class="check-toggle"></span>
+                        <small class="ml-2">Remember me</small>
+                    </label>
+                    <small (click)="forgetPassword()">Forget password?</small>
+                </div>
+                <button class='btn btn-primary btn-block w-100 font-weight-bold login-button' type="submit"
+                    [disabled]="loginForm.invalid || apiInProgress">
+                    {{apiInProgress ? 'Logging In' : 'Login'}}
+                </button>
+                <div *ngIf="popUpValue" class="popup-alert">
+                    <span class="text-warning">{{popUpValue}}</span>
+                </div>
+            </form>
         </div>
-        <div class="col-sm-6 column-2">
-            <div class="right">
-                <h4>About Excellence CMS</h4>
-                <p class="para">
-                    A Campaign Management System (CMS) is a set of tools designed to handle the various components of a
-                    marketing campaign.
-                    It usually provides a user-friendly dashboard that allows business/marketing leaders to create
-                    campaign along with adding bulk users , checking status of sent mails , click rates
-                    and smtp management. From creating campaign to keeping track of all details,
-                    Excellence CMS lets you manage your entire campaignign process.
-                </p>
-                <h4 class="features">Features</h4>
-                <ul>
-                    <li><i class="fa fa-circle text-grey"></i>Extensive Integration: Create campaign straight from
-                        portal</li>
-                    <li><i class="fa fa-circle text-grey"></i>Automated Workflow: Send mail to all candidates based on
-                        interval</li>
-                    <li><i class="fa fa-circle text-grey"></i>Campaign Tracking: Check seen status, click rates, send
-                        mail status</li>
-                    <li><i class="fa fa-circle text-grey"></i>Database Management: Organize all campaign data & files
-                        securely</li>
-                    <li><i class="fa fa-circle text-grey"></i>Add bulk user from csv files to campaign</li>
-                    <li><i class="fa fa-circle text-grey"></i>Integrated SMTP management</li>
-                </ul>
-            </div>
+
+        <div class="right-panel col-md-8 d-none d-md-flex flex-column bg-primary">
+            <figure class="my-3 text-center d-none d-md-block">
+                <!-- <img src="assets/img/login.png"> -->
+            </figure>
         </div>
     </div>
 </div>

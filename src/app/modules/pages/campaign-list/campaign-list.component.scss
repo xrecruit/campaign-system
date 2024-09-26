@@ -1,20 +1,31 @@
-@import '../../../../global.scss';
+@import "../../../../global.scss";
 
-.campaignList{
+.campaignList {
     background: $background;
 }
 
 .cursor {
-  color: $red;
-  border: none;
-  background-color: inherit
+    color: $red;
+    border: none;
+    background-color: inherit;
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
-.campaign-name ,
-.text-center{
+.campaign-name,
+.text-center {
     vertical-align: middle;
+}
+
+.negative-margin {
+    margin-top: -6px;
+}
+
+.campaign-container {
+    padding: 14px 0;
+    .campaign-description {
+        font-size: 12px;
+    }
 }

@@ -13,18 +13,12 @@ export class InterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = this.localStorageService.getToken();
 
-    if (accessToken && !req.url.includes('login') && !req.url.includes('notify') && !req.url.includes('unsub_status') && !req.url.includes('update_settings')) {
-      req = req.clone({
-        setParams: {
-          accessToken
-        }
-      });
-    }
-    else {
-      req = req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${accessToken}`),
-      })
-    }
+    req = req.clone({
+      setParams: {
+        'account-name': 'devrecruit'
+      },
+      headers: req.headers.set('SecretKey', 'MBw[;Rv]-6M]&3P2Grb'),
+    });
 
     return next.handle(req);
   }

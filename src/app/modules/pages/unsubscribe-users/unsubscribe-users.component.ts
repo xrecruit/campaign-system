@@ -18,6 +18,7 @@ export class UnsubscribeUsersComponent implements OnInit {
   page: number = 1;
   totalUsers: number;
   lastPage: number;
+  popUpValue: any;
 
   ngOnInit() {
     this.getUnsubscribedUserList();
@@ -31,6 +32,9 @@ export class UnsubscribeUsersComponent implements OnInit {
         limit: this.limit
       });
       if (res && res.list) {
+        if (res.list.length === 0) {
+          this.popUpValue = ['Do not have unsubscribed users.', true];
+        }
         this.unsubscribedUserList = res.list;
         this.totalUsers = res.totalUnsub;
         this.lastPage = Math.ceil(this.totalUsers / this.limit);

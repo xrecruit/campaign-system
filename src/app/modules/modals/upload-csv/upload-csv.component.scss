@@ -1,7 +1,6 @@
 @import "../../../styles/helpers";
 @import "../../../../../node_modules/jasny-bootstrap/dist/css/jasny-bootstrap";
 
-
 .fileinput.input-group {
   display: flex;
 }
@@ -17,6 +16,12 @@
   }
 }
 
-.userDataFormat{
+.userDataFormat {
   line-height: 1.5rem;
+}
+
+.fileName {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }

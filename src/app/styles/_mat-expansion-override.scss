@@ -1,0 +1,34 @@
+app-campaign-list {
+    .mat-accordion {
+        .mat-expansion-panel {
+            box-shadow: none;
+            border: 1px solid #e0e2e7;
+            border-radius: 5px;
+
+            .mat-expansion-panel-header {
+                height: unset !important;
+                padding: 8px 13px 8px 13px;
+                .mat-content {
+                    justify-content: space-between;
+                    .mat-expansion-panel-header-title {
+                        font-size: 20px;
+                        flex-grow: 1;
+                        flex-direction: column;
+                    }
+                    .mat-expansion-panel-header-description {
+                        flex-grow: 0;
+                    }
+                }
+            }
+            .mat-expansion-panel-content {
+                border-top: 1px solid #e0e2e7;
+                .mat-expansion-panel-body {
+                    padding: 24px 13px 8px 10px;
+                }
+            }
+        }
+        .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled="true"]) {
+            background: unset;
+        }
+    }
+}

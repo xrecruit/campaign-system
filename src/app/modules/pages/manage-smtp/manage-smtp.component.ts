@@ -3,6 +3,7 @@ import { ManageSmtpService } from "./manage-smtp.service"
 import { CommonService } from 'src/app/services/common.service';
 import { MatDialog } from '@angular/material';
 import { SetPasswordComponent } from '../../modals/set-password/set-password.component';
+import { DomainsDetails } from '../../.././app.config'
 
 @Component({
   selector: 'app-manage-smtp',
@@ -13,6 +14,7 @@ export class ManageSmtpComponent implements OnInit {
   smtpList: any;
   apiInProgress: boolean;
   popUpValue: Array<any>;
+  domainDetails = DomainsDetails;
 
   constructor(
     private manageSmtpService: ManageSmtpService,
@@ -28,6 +30,13 @@ export class ManageSmtpComponent implements OnInit {
     try {
       const data = await this.manageSmtpService.getSmtpList() as Array<any>;
       this.smtpList = data.sort((a, b) => a.priority > b.priority ? 1 : -1);
+      this.smtpList.forEach(smtp => {
+        this.domainDetails.forEach(domain => {
+          if (smtp.mail_server === domain.smtp) {
+            smtp['imgSrc'] = domain.src;
+          }
+        });
+      });
     } catch (error) {
       this.commonService.handleError(error);
     }

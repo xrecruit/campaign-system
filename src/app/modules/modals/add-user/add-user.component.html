@@ -5,7 +5,7 @@
 <div mat-dialog-content class="mt-2">
     <form [formGroup]="addUserForm">
         <div class="row form-group">
-            <div class="col-md-2"><label class="control-label">Name</label></div>
+            <div class="col-md-2 d-flex align-items-center"><label class="control-label">Name</label></div>
             <div class="col-md-10">
                 <input type="text" class="form-control form-control-sm" formControlName="name">
                 <div *ngIf="addUserForm.get('name').invalid && addUserForm.get('name').touched">
@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="row form-group">
-            <div class="col-md-2"><label class="control-label">Email</label></div>
+            <div class="col-md-2 d-flex align-items-center"><label class="control-label">Email</label></div>
             <div class="col-md-10">
                 <input type="text" class="form-control form-control-sm" formControlName="email">
                 <div *ngIf="addUserForm.get('email').invalid && addUserForm.get('email').touched">

@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef, EventEmitter, Output } from '@angular/co
 import { NavigationEnd, Router } from '@angular/router';
 import { AppConfig } from 'src/app/app.config';
 import { Location } from '@angular/common';
+import { CommonService } from 'src/app/services/common.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 declare let jQuery: any;
 
@@ -26,7 +28,8 @@ export class SettingsSidenavComponent implements OnInit {
     config: AppConfig,
     el: ElementRef,
     router: Router,
-    location: Location
+    location: Location,
+    private localStorageService: LocalStorageService
   ) {
     this.$el = jQuery(el.nativeElement);
     this.config = config.getConfig();
@@ -38,7 +41,6 @@ export class SettingsSidenavComponent implements OnInit {
   ngOnInit(): void {
     jQuery(window).on('sn:resize', this.initSidebarScroll.bind(this));
     this.initSidebarScroll();
-
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.changeActiveNavigationItem(this.location);
@@ -90,4 +92,8 @@ export class SettingsSidenavComponent implements OnInit {
     this.openSideNav.emit();
   }
 
+  logout() {
+    this.router.navigate(['/login']);
+    this.localStorageService.clearLocalStorage();
+  }
 }
